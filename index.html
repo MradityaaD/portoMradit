@@ -1,0 +1,1012 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>portofoliosaya — Muhammad Raditya</title>
+  <meta name="description" content="Portofolio Muhammad Raditya Duta Pratama — web developer & game developer.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap"
+    rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    /* Mode ringan: HP / layar sentuh / perangkat dengan CPU atau RAM kecil. Dipasang di <head> supaya CSS langsung tahu. */
+    var LITE = matchMedia('(pointer:coarse)').matches || (navigator.hardwareConcurrency || 8) <= 4 || (navigator.deviceMemory || 8) <= 4;
+    if (LITE) document.documentElement.classList.add('lite');
+  </script>
+  <style>
+    /* ===== Token warna & font ===== */
+    :root {
+      --ink: #000;
+      --paper: #fff;
+      --f-d: 'Bricolage Grotesque', 'Arial Black', sans-serif;
+      --f-b: 'DM Sans', system-ui, sans-serif
+    }
+
+    html {
+      scroll-padding-top: 72px
+    }
+
+    body {
+      font-family: var(--f-b);
+      background: #fff;
+      color: #000;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden
+    }
+
+    .fd {
+      font-family: var(--f-d)
+    }
+
+    :focus-visible {
+      outline: 2px solid currentColor;
+      outline-offset: 3px
+    }
+
+    section {
+      position: relative;
+      overflow: hidden
+    }
+
+    .web {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0
+    }
+
+    section>div:not(.wm) {
+      position: relative;
+      z-index: 1
+    }
+
+    .light {
+      background: #fff;
+      color: #000
+    }
+
+    .dark {
+      background: #000;
+      color: #fff
+    }
+
+    /* ===== Kursor kustom ===== */
+    #cDot,
+    #cRing {
+      position: fixed;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      z-index: 9999;
+      mix-blend-mode: difference;
+      background: #fff;
+      border-radius: 50%;
+      display: none
+    }
+
+    #cDot {
+      width: 8px;
+      height: 8px;
+      margin: -4px 0 0 -4px
+    }
+
+    #cRing {
+      width: 38px;
+      height: 38px;
+      margin: -19px 0 0 -19px;
+      background: transparent;
+      border: 1.5px solid #fff;
+      transition: width .25s, height .25s, margin .25s, background .25s
+    }
+
+    #cRing.big {
+      width: 72px;
+      height: 72px;
+      margin: -36px 0 0 -36px;
+      background: #fff
+    }
+
+    @media(hover:hover) and (pointer:fine) {
+
+      body.cc,
+      body.cc * {
+        cursor: none !important
+      }
+
+      #cDot,
+      #cRing {
+        display: block
+      }
+    }
+
+    /* ===== Navbar glass ===== */
+    #nav {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      backdrop-filter: blur(14px) saturate(160%);
+      -webkit-backdrop-filter: blur(14px) saturate(160%);
+      transition: background .35s, color .35s, border-color .35s;
+      padding-top: env(safe-area-inset-top, 0px)
+    }
+
+    #nav.l {
+      background: rgba(255, 255, 255, .62);
+      color: #000;
+      border-bottom: 1px solid rgba(0, 0, 0, .1)
+    }
+
+    #nav.d {
+      background: rgba(0, 0, 0, .55);
+      color: #fff;
+      border-bottom: 1px solid rgba(255, 255, 255, .15)
+    }
+
+    /* Mode ringan: tanpa blur (backdrop-filter mahal di GPU lemah), latar dibuat hampir solid */
+    .lite #nav {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none
+    }
+
+    .lite #nav.l {
+      background: rgba(255, 255, 255, .94)
+    }
+
+    .lite #nav.d {
+      background: rgba(0, 0, 0, .92)
+    }
+
+    .nl {
+      position: relative;
+      padding: 4px 0
+    }
+
+    .nl:after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -2px;
+      height: 2px;
+      width: 0;
+      background: currentColor;
+      transition: width .3s
+    }
+
+    .nl:hover:after,
+    .nl.on:after {
+      width: 100%
+    }
+
+    .bg span {
+      display: block;
+      height: 2px;
+      width: 24px;
+      background: currentColor;
+      transition: .3s
+    }
+
+    .bg span+span {
+      margin-top: 6px
+    }
+
+    .bg.o span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg)
+    }
+
+    .bg.o span:nth-child(2) {
+      opacity: 0
+    }
+
+    .bg.o span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg)
+    }
+
+    /* ===== Home ===== */
+    .wm {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font: 800 clamp(4.5rem, 19vw, 20rem)/.85 var(--f-d);
+      letter-spacing: -.045em;
+      color: rgba(0, 0, 0, .055);
+      text-align: center;
+      pointer-events: none;
+      user-select: none
+    }
+
+    .wm span {
+      display: block
+    }
+
+    .photo {
+      position: relative
+    }
+
+    .photo:before {
+      content: "";
+      position: absolute;
+      inset: -14px;
+      border: 2px solid #000;
+      border-radius: 1.75rem;
+      transform: rotate(-4deg);
+      transition: transform .5s
+    }
+
+    .photo:hover:before {
+      transform: none
+    }
+
+    .photo img {
+      filter: grayscale(1) contrast(1.1)
+    }
+
+    .swing {
+      transform-origin: 50% 0;
+      animation: swing 6s ease-in-out infinite
+    }
+
+    @keyframes swing {
+
+      0%,
+      100% {
+        transform: rotate(-3deg)
+      }
+
+      50% {
+        transform: rotate(3deg)
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .8rem 1.4rem;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: .9rem;
+      border: 2px solid #000;
+      transition: transform .2s, background .2s, color .2s
+    }
+
+    .btn:hover {
+      transform: translateY(-2px)
+    }
+
+    .b1 {
+      background: #000;
+      color: #fff
+    }
+
+    .b1:hover {
+      background: #fff;
+      color: #000
+    }
+
+    .b2 {
+      background: transparent;
+      color: #000
+    }
+
+    .b2:hover {
+      background: #000;
+      color: #fff
+    }
+
+    /* ===== About: jendela kode ===== */
+    .code {
+      border: 1px solid rgba(255, 255, 255, .25);
+      border-radius: 1.2rem;
+      background: rgba(255, 255, 255, .04);
+      overflow: hidden
+    }
+
+    .cbar {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .8rem 1.1rem;
+      border-bottom: 1px solid rgba(255, 255, 255, .18);
+      font-size: .85rem
+    }
+
+    .cbar i {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      background: #fff
+    }
+
+    .cbar i:nth-child(2) {
+      opacity: .5
+    }
+
+    .cbar i:nth-child(3) {
+      opacity: .25
+    }
+
+    .cbar span {
+      margin-left: .6rem;
+      opacity: .8
+    }
+
+    .code pre {
+      padding: 1.3rem 1.2rem;
+      overflow-x: auto;
+      font: 500 clamp(.76rem, 1.6vw, .95rem)/1.85 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      min-height: 19rem
+    }
+
+    .code i {
+      font-style: normal
+    }
+
+    .code .c {
+      color: #777
+    }
+
+    .code .s {
+      color: #cfcfcf
+    }
+
+    .code .p {
+      font-weight: 700
+    }
+
+    .code b {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 4px
+    }
+
+    .code u {
+      text-decoration: none;
+      font-weight: 700;
+      border-bottom: 1px dashed rgba(255, 255, 255, .6)
+    }
+
+    .caret {
+      display: inline-block;
+      width: .55em;
+      height: 1.1em;
+      background: #fff;
+      vertical-align: -.2em;
+      animation: bl 1s steps(1) infinite
+    }
+
+    @keyframes bl {
+      50% {
+        opacity: 0
+      }
+    }
+
+    .glass {
+      border: 1px solid rgba(255, 255, 255, .22);
+      background: rgba(255, 255, 255, .05);
+      border-radius: 1.5rem
+    }
+
+    .glass dt {
+      font-size: .75rem;
+      opacity: .55
+    }
+
+    .glass dd {
+      font-weight: 700;
+      margin-bottom: .8rem
+    }
+
+    /* ===== Skills ===== */
+    .fb {
+      padding: .55rem 1.2rem;
+      border: 2px solid #000;
+      border-radius: 99px;
+      font-weight: 700;
+      font-size: .85rem;
+      transition: background .2s, color .2s
+    }
+
+    .fb:hover {
+      background: rgba(0, 0, 0, .08)
+    }
+
+    .fb.on {
+      background: #000;
+      color: #fff
+    }
+
+    .skw {
+      will-change: transform, opacity
+    }
+
+    .skw[hidden] {
+      display: none
+    }
+
+    .sk {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
+      border: 2px solid #000;
+      border-radius: .8rem;
+      padding: .65rem .8rem;
+      background: #fff;
+      transition: background .2s, color .2s
+    }
+
+    .sk:hover {
+      background: #000;
+      color: #fff
+    }
+
+    .sk .ic {
+      width: 36px;
+      height: 36px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border: 2px solid currentColor;
+      border-radius: 10px;
+      font: 800 .72rem var(--f-d)
+    }
+
+    .mq {
+      overflow: hidden;
+      color: #000;
+      border-block: 2px solid #000;
+      padding: .9rem 0
+    }
+
+    .mt {
+      transition: opacity .25s;
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: mq var(--d, 30s) linear infinite
+    }
+
+    .mq:hover .mt {
+      animation-play-state: paused
+    }
+
+    .mt span {
+      font: 500 clamp(.95rem, 1.8vw, 1.15rem) var(--f-d);
+      padding: 0 1.1rem;
+      white-space: nowrap
+    }
+
+    @keyframes mq {
+      to {
+        transform: translateX(-50%)
+      }
+    }
+
+    /* ===== Projects ===== */
+    .pc {
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 1.4rem;
+      padding: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      background: rgba(255, 255, 255, .03);
+      transition: box-shadow .35s, border-color .35s, transform .35s
+    }
+
+    .pc:hover {
+      border-color: #fff;
+      transform: translateY(-6px);
+      box-shadow: 0 0 0 1px #fff, 0 0 36px rgba(255, 255, 255, .28)
+    }
+
+    .tg {
+      font-size: .72rem;
+      padding: .25rem .65rem;
+      border: 1px solid rgba(255, 255, 255, .4);
+      border-radius: 99px
+    }
+
+    .lb {
+      font-size: .85rem;
+      font-weight: 700;
+      padding: .5rem 1rem;
+      border-radius: 99px;
+      border: 1px solid #fff;
+      transition: .2s
+    }
+
+    .lb:hover,
+    .lb.s {
+      background: #fff;
+      color: #000
+    }
+
+    .lb.s:hover {
+      background: transparent;
+      color: #fff
+    }
+
+    /* ===== Contact ===== */
+    .cc2 {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.1rem 1.3rem;
+      border: 2px solid #000;
+      border-radius: 1.2rem;
+      transition: .25s
+    }
+
+    .cc2:hover {
+      background: #000;
+      color: #fff;
+      transform: translateX(8px)
+    }
+
+    .cc2 i {
+      width: 46px;
+      height: 46px;
+      display: grid;
+      place-items: center;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      font: 700 .85rem var(--f-d);
+      font-style: normal;
+      flex-shrink: 0
+    }
+
+    .fld {
+      width: 100%;
+      background: transparent;
+      border: 2px solid #000;
+      border-radius: 1rem;
+      padding: .85rem 1rem;
+      outline: none;
+      transition: .2s
+    }
+
+    .fld:focus {
+      box-shadow: 5px 5px 0 #000
+    }
+
+    .cc3 {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 2.5rem;
+      min-height: 13rem;
+      padding: 1.6rem;
+      border: 2px solid #000;
+      border-radius: 1.6rem;
+      background: rgba(255, 255, 255, .75);
+      overflow: hidden;
+      transition: transform .35s, background .3s, color .3s, box-shadow .35s
+    }
+
+    .cc3:hover {
+      background: #000;
+      color: #fff;
+      transform: translateY(-8px);
+      box-shadow: 8px 8px 0 rgba(0, 0, 0, .2)
+    }
+
+    .cc3 i {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+      font: 800 1rem var(--f-d);
+      font-style: normal
+    }
+
+    .cc3 .go {
+      position: absolute;
+      top: 1.4rem;
+      right: 1.5rem;
+      font-size: 1.6rem;
+      transition: transform .35s
+    }
+
+    .cc3:hover .go {
+      transform: translate(5px, -5px)
+    }
+
+    .cc3 .bgw {
+      position: absolute;
+      right: -.3rem;
+      bottom: -1.4rem;
+      font: 800 7.5rem/1 var(--f-d);
+      letter-spacing: -.05em;
+      opacity: .06;
+      pointer-events: none
+    }
+
+    /* ===== Tirai transisi, progress, reveal ===== */
+    #curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 70;
+      display: grid;
+      place-items: center;
+      transform: translateY(100%);
+      pointer-events: none;
+      will-change: transform
+    }
+
+    #curtain.dk {
+      background: #000;
+      color: #fff
+    }
+
+    #curtain.lt {
+      background: #fff;
+      color: #000
+    }
+
+    #curtain span {
+      font: 800 clamp(2.5rem, 11vw, 8rem)/1 var(--f-d);
+      letter-spacing: -.04em
+    }
+
+    #pb {
+      position: fixed;
+      left: 0;
+      top: 0;
+      height: 3px;
+      width: 100%;
+      background: #000;
+      transform-origin: 0 0;
+      transform: scaleX(0);
+      will-change: transform;
+      z-index: 55
+    }
+
+    .rv {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .9s cubic-bezier(.16, 1, .3, 1), transform .9s cubic-bezier(.16, 1, .3, 1) !important
+    }
+
+    .rv.in {
+      opacity: 1;
+      transform: none
+    }
+
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      :before,
+      :after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important
+      }
+    }
+  </style>
+</head>
+
+<body class="cc">
+  <div id="cDot"></div>
+  <div id="cRing"></div>
+  <div id="pb"></div>
+  <div id="curtain" class="dk" aria-hidden="true"><span id="cl"></span></div>
+
+  <!-- ===== NAVBAR: kiri logo, kanan menu (tanpa "home") ===== -->
+  <header id="nav" class="l">
+    <div class="max-w-6xl mx-auto px-5 h-16 flex items-center justify-between">
+      <a href="#home" class="fd font-extrabold text-xl tracking-tight">portofoliosaya</a>
+      <nav class="hidden md:flex gap-8 text-sm font-medium">
+        <a class="nl" href="#about">about</a><a class="nl" href="#skills">skills</a><a class="nl"
+          href="#projects">projects</a><a class="nl" href="#contact">contact</a>
+      </nav>
+      <button id="bg" class="bg md:hidden p-2" aria-label="Buka menu"
+        aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+    <nav id="mm" class="hidden md:hidden px-5 pb-4 flex-col text-base font-medium">
+      <a class="py-3 border-t border-current/10" href="#about">about</a><a class="py-3 border-t border-current/10"
+        href="#skills">skills</a><a class="py-3 border-t border-current/10" href="#projects">projects</a><a
+        class="py-3 border-t border-current/10" href="#contact">contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <!-- ===== HOME: putih + canvas jaring laba-laba ===== -->
+    <section id="home" class="light min-h-screen flex items-center overflow-hidden pt-24 pb-14">
+      <div class="wm" aria-hidden="true"><span id="wmi">MUHAMMAD<br>RADITYA</span></div>
+      <div class="relative max-w-6xl mx-auto px-5 w-full">
+        <div class="grid md:grid-cols-[1fr_auto_1fr] items-center gap-8">
+          <div class="order-2 md:order-1 text-center md:text-right">
+            <h1 class="fd font-extrabold text-3xl lg:text-5xl leading-tight">Web developer</h1>
+            <p class="mt-3 opacity-70 max-w-xs mx-auto md:mr-0 md:ml-auto">Membangun antarmuka yang bersih, cepat, dan
+              nyaman dipakai di semua perangkat.</p>
+          </div>
+          <div id="spw" class="order-1 md:order-2 flex justify-center">
+            <!-- GANTI FOTO: ubah nilai src di bawah ini (mis. assets/fotobaru.jpg) -->
+            <img id="homePhoto" src="laba laba.png" alt="Laba-laba bergelantung pada benang" decoding="async"
+              class="swing h-80 md:h-[30rem] w-auto">
+          </div>
+          <div class="order-3 text-center md:text-left">
+            <h2 class="fd font-extrabold text-3xl lg:text-5xl leading-tight">Game developer</h2>
+            <p class="mt-3 opacity-70 max-w-xs mx-auto md:mx-0">Dari web app sampai game sederhana, saya suka mengubah
+              ide menjadi sesuatu yang bisa dimainkan.</p>
+          </div>
+        </div>
+        <div class="mt-8 text-center">
+          <p class="fd font-extrabold text-xl md:text-2xl">Muhammad Raditya Duta Pratama</p>
+          <p class="opacity-65 text-sm mt-1">Siswa PPLG, SMK TI Dwi Guna</p>
+        </div>
+        <div class="mt-6 flex flex-wrap justify-center gap-3">
+          <a id="gh1" target="_blank" rel="noopener" class="btn b1">Lihat GitHub</a>
+          <a id="dcv" download class="btn b2">Download CV</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ABOUT: hitam, jendela kode + teks tentang saya ===== -->
+    <section id="about" class="dark py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-5">
+        <h2 class="fd font-extrabold text-4xl md:text-6xl">About me</h2>
+        <div class="mt-12 grid lg:grid-cols-[1.1fr_1fr] gap-8 items-start">
+          <div class="code" role="img" aria-label="Profil dalam bentuk kode JavaScript">
+            <div class="cbar"><i></i><i></i><i></i><span>about.js</span></div>
+            <pre><code id="codeEl"></code></pre>
+          </div>
+          <div class="glass p-7 md:p-9 space-y-4 leading-relaxed opacity-90">
+            <p>Siswa aktif SMK TI Dwi Guna jurusan PPLG (Pengembangan Perangkat Lunak dan Gim) yang disiplin, memiliki
+              motivasi belajar tinggi, serta siap mengikuti program PKL untuk menambah pengalaman di dunia kerja.
+              Memiliki pemahaman dasar pemrograman, pengoperasian komputer, problem solving, dan mampu bekerja sama
+              dalam tim.</p>
+            <p>Menguasai dasar HTML, CSS, dan logika pemrograman untuk pembuatan website. Mampu merancang alur tampilan
+              (wireframe) dan UI menggunakan Figma dan Canva.</p>
+            <p>Terbiasa menggunakan VS Code untuk penulisan kode dan MS Office untuk dokumentasi. Adaptif, berkemauan
+              belajar tinggi, disiplin, dan mampu bekerja sama dalam tim.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SKILLS: putih, scatter-to-neat + filter + marquee ===== -->
+    <section id="skills" class="light py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-5">
+        <h2 class="fd font-extrabold text-4xl md:text-6xl">Skills</h2>
+        <div id="flt" class="flex flex-wrap gap-3 my-8">
+          <button class="fb on" data-f="all">All</button><button class="fb" data-f="frontend">Frontend</button><button
+            class="fb" data-f="backend">Backend</button><button class="fb" data-f="tools">Tools</button>
+        </div>
+        <div id="sg" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 min-h-[10rem] relative"></div>
+      </div>
+      <div class="mq mt-20" aria-hidden="true">
+        <div class="mt" id="mt"></div>
+      </div>
+    </section>
+
+    <!-- ===== PROJECTS: hitam, kartu border glow ===== -->
+    <section id="projects" class="dark py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-5">
+        <h2 class="fd font-extrabold text-4xl md:text-6xl">Projects</h2>
+        <p class="mt-4 max-w-xl opacity-70">Web app dan game yang pernah saya bangun. Ganti isi kartu dengan proyekmu.
+        </p>
+        <div id="pg" class="mt-12 grid md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+      </div>
+    </section>
+
+    <!-- ===== CONTACT: putih ===== -->
+    <section id="contact" class="light py-24 md:py-32">
+      <div class="max-w-6xl mx-auto px-5">
+        <h2 class="fd font-extrabold text-4xl md:text-6xl">Contact</h2>
+        <p class="mt-4 max-w-xl opacity-70">Punya ide atau tawaran kolaborasi? Hubungi saya lewat salah satu cara ini.
+        </p>
+        <div class="mt-12 grid sm:grid-cols-3 gap-5">
+          <a id="wa" target="_blank" rel="noopener" class="cc3"><span class="go"
+              aria-hidden="true">↗</span><i>WA</i><span class="bgw" aria-hidden="true">WA</span><span><b
+                class="fd block text-2xl">WhatsApp</b><small class="opacity-65 block">Chat langsung</small><small
+                id="waL" class="opacity-65 block mt-1 break-all"></small></span></a>
+          <a id="ml" class="cc3"><span class="go" aria-hidden="true">↗</span><i>@</i><span class="bgw"
+              aria-hidden="true">@</span><span><b class="fd block text-2xl">Gmail</b><small
+                class="opacity-65 block">Kirim email</small><small id="mlL"
+                class="opacity-65 block mt-1 break-all"></small></span></a>
+          <a id="gh2" target="_blank" rel="noopener" class="cc3"><span class="go"
+              aria-hidden="true">↗</span><i>GH</i><span class="bgw" aria-hidden="true">GH</span><span><b
+                class="fd block text-2xl">GitHub</b><small class="opacity-65 block">Lihat kode saya</small><small
+                id="ghL" class="opacity-65 block mt-1 break-all"></small></span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    /* ===== KONFIGURASI: ganti dengan datamu ===== */
+    const CFG = { email: 'pratamaradityaa98@gmail.com', wa: '6285774464144', gh: 'https://github.com/MradityaaD', cv: 'cv-Mradit.jpeg' };
+
+    /* Skill (sesuai permintaan) + tagline marquee per kategori */
+    const SK = [['HTML5', 'frontend', 'H5'], ['CSS3', 'frontend', 'C3'], ['JavaScript', 'frontend', 'JS'], ['PHP', 'backend', 'PHP'], ['MySQL', 'backend', 'SQL'], ['Python', 'backend', 'Py'], ['GitHub', 'tools', 'GH'], ['VS Code', 'tools', 'VS'], ['Canva', 'tools', 'Ca'], ['Figma', 'tools', 'Fi']];
+    const TAG = { all: ['Frontend', 'Backend', 'Tools', 'Web developer', 'Game developer', 'Clean code'], frontend: ['Antarmuka responsif', 'HTML semantik', 'CSS modern', 'JavaScript interaktif', 'Aksesibel'], backend: ['Logika server', 'Database MySQL', 'API dengan PHP', 'Skrip Python', 'Data terstruktur'], tools: ['Version control GitHub', 'Coding di VS Code', 'Desain di Figma', 'Visual dengan Canva', 'Alur kerja rapi'] };
+    const PR = [['Web', 'Website Sederhana', 'Membuat tampilan website statis sederhana dengan HTML dan CSS, dengan tata letak yang rapi dan responsif.'], ['Desain', 'Desain Antarmuka Aplikasi', 'Merancang alur dan tampilan antarmuka (wireframe/prototype) aplikasi menggunakan Figma, lengkap dengan warna, tombol, dan tata letak.'], ['Game', 'Game Flappy Bird 2D', 'Membuat game interaktif Flappy Bird dengan blok pemrograman Scratch, dari tampilan awal, rintangan, hingga game over.']];
+
+    const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const RM = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    /* ===== Isi link & gambar dari konfigurasi ===== */
+
+    $('#dcv').href = CFG.cv; $('#gh1').href = $('#gh2').href = CFG.gh; $('#ghL').textContent = CFG.gh.replace(/^https?:\/\//, '');
+    $('#wa').href = 'https://wa.me/' + CFG.wa; $('#waL').textContent = '+' + CFG.wa;
+    const touch = matchMedia('(pointer:coarse)').matches; // HP: pakai aplikasi email bawaan (Gmail app jika terpasang)
+    $('#ml').href = touch ? `mailto:${CFG.email}` : `https://mail.google.com/mail/?view=cm&fs=1&to=${CFG.email}&su=${encodeURIComponent('Halo Raditya')}`;
+    if (!touch) { $('#ml').target = '_blank'; $('#ml').rel = 'noopener' } $('#mlL').textContent = CFG.email;
+
+
+    /* ===== Kursor kustom: titik + ring dengan lerp halus ===== */
+    (() => {
+      const d = $('#cDot'), r = $('#cRing'); let mx = -99, my = -99, rx = -99, ry = -99;
+      addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; d.style.transform = `translate(${mx}px,${my}px)` });
+      (function t() { rx += (mx - rx) * .16; ry += (my - ry) * .16; r.style.transform = `translate(${rx}px,${ry}px)`; requestAnimationFrame(t) })();
+      document.addEventListener('mouseover', e => r.classList.toggle('big', !!e.target.closest('a,button,input,textarea,.sk')));
+    })();
+
+    /* ===== Navbar: tema mengikuti section aktif ===== */
+    const nav = $('#nav'), mm = $('#mm'), secs = $$('main section'), pb = $('#pb'), wmi = $('#wmi'), spw = $('#spw'), navLinks = $$('.nl');
+    let secTop = [], curSec = null;
+    function measureSecs() { secTop = secs.map(s => s.offsetTop) }   // offsetTop dibaca sekali, bukan tiap scroll
+    function onScroll() {
+      const p = scrollY + 40; let c = secs[0]; secs.forEach((s, i) => { if (secTop[i] <= p) c = s });
+      if (c === curSec) return; curSec = c;                           // hanya kerja kalau section aktif berganti
+      const dk = c.classList.contains('dark');
+      nav.className = dk ? 'd' : 'l'; pb.style.background = dk ? '#fff' : '#000';
+      navLinks.forEach(l => l.classList.toggle('on', l.getAttribute('href') === '#' + c.id))
+    }
+    measureSecs(); addEventListener('scroll', onScroll, { passive: true }); onScroll();
+    function menu(o) { mm.classList.toggle('hidden', !o); mm.classList.toggle('flex', o); $('#bg').classList.toggle('o', o); $('#bg').setAttribute('aria-expanded', o) }
+    $('#bg').onclick = () => menu(mm.classList.contains('hidden')); $$('#mm a').forEach(a => a.onclick = () => menu(false));
+
+    /* ===== Tirai transisi: klik menu → layar tertutup → langsung ke halaman tujuan ===== */
+    let sy = scrollY, going = false; const cur = $('#curtain');
+    function go(id) {
+      const t = $('#' + id); if (!t || going) return;
+      if (RM) { scrollTo(0, t.offsetTop); return }
+      going = true; cur.className = nav.classList.contains('d') ? 'lt' : 'dk'; $('#cl').textContent = id;
+      cur.style.transition = 'none'; cur.style.transform = 'translateY(100%)'; void cur.offsetWidth;
+      cur.style.transition = 'transform .6s cubic-bezier(.76,0,.24,1)'; cur.style.transform = 'translateY(0)';
+      setTimeout(() => {
+        scrollTo({ top: t.offsetTop, behavior: 'instant' }); sy = scrollY; onScroll();
+        setTimeout(() => { cur.style.transform = 'translateY(-100%)'; setTimeout(() => going = false, 650) }, 260)
+      }, 650)
+    }
+    document.addEventListener('click', e => { const a = e.target.closest('a[href^="#"]'); if (!a || a.getAttribute('href') === '#') return; e.preventDefault(); go(a.getAttribute('href').slice(1)) });
+
+    /* ===== Jaring laba-laba di SETIAP section (hanya yang terlihat yang digambar) ===== */
+    const webs = secs.map(sec => {
+      const c = document.createElement('canvas'); c.className = 'web'; c.setAttribute('aria-hidden', 'true'); sec.prepend(c);
+      const w = { sec, c, x: c.getContext('2d'), m: { x: -999, y: -999 }, P: [], vis: false, ink: sec.classList.contains('dark') ? '255,255,255' : '0,0,0' };
+      if (!touch) {   // kursor/mouse hanya ada di desktop
+        sec.addEventListener('mousemove', e => { const b = sec.getBoundingClientRect(); w.m.x = e.clientX - b.left; w.m.y = e.clientY - b.top });
+        sec.addEventListener('mouseleave', () => w.m.x = w.m.y = -999);
+      }
+      new IntersectionObserver(e => w.vis = e[0].isIntersecting).observe(sec); return w
+    });
+    /* Ukuran canvas HANYA diubah kalau ukuran section benar-benar berubah.
+       Di HP, address bar yang muncul/hilang memicu 'resize' tiap scroll; dulu itu menghapus & membuat ulang semua canvas (blok putih/kedip). */
+    const WEB_K = LITE ? 1 : Math.min(devicePixelRatio || 1, 2), WEB_MAX = LITE ? 28 : 80, WEB_LINK = LITE ? 100 : 115;
+    function sizeWebs() {
+      webs.forEach(w => {
+        const W = w.sec.clientWidth, H = w.sec.clientHeight; if (!W || !H || (W === w.W && H === w.H)) return;
+        w.W = W; w.H = H; w.c.width = W * WEB_K; w.c.height = H * WEB_K; w.x.setTransform(WEB_K, 0, 0, WEB_K, 0, 0);
+        w.P = Array.from({ length: Math.min(WEB_MAX, Math.floor(W * H / (LITE ? 22000 : 14000))) }, () => ({ x: Math.random() * W, y: Math.random() * H, vx: (Math.random() - .5) * .45, vy: (Math.random() - .5) * .45 }))
+      }); measureSecs(); measureSkills()
+    }
+    let rzT; function onResize() { clearTimeout(rzT); rzT = setTimeout(sizeWebs, 200) }
+    sizeWebs(); addEventListener('resize', onResize); addEventListener('load', sizeWebs); if (document.fonts) document.fonts.ready.then(sizeWebs);
+    const ALPHA = [.05, .1, .16, .22];   // garis dikelompokkan per tingkat transparansi → 4x stroke() per canvas, bukan ratusan
+    function drawWeb(w) {
+      const { x, P, m, W, H, ink } = w; x.clearRect(0, 0, W, H);
+      const R2 = WEB_LINK * WEB_LINK, B = [new Path2D(), new Path2D(), new Path2D(), new Path2D()], dots = new Path2D(), hasM = m.x > -900;
+      for (const p of P) {
+        if (!RM) { p.x += p.vx; p.y += p.vy } if (p.x < 0 || p.x > W) p.vx *= -1; if (p.y < 0 || p.y > H) p.vy *= -1;
+        if (hasM) { const dx = m.x - p.x, dy = m.y - p.y, d = Math.hypot(dx, dy); if (d < 170) { p.x += dx * .012; p.y += dy * .012; x.strokeStyle = `rgba(${ink},${(1 - d / 170) * .6})`; x.beginPath(); x.moveTo(p.x, p.y); x.lineTo(m.x, m.y); x.stroke() } }
+        dots.moveTo(p.x + 1.6, p.y); dots.arc(p.x, p.y, 1.6, 0, 6.3)
+      }
+      for (let i = 0; i < P.length; i++) { const a = P[i]; for (let j = i + 1; j < P.length; j++) { const b = P[j], dx = a.x - b.x, dy = a.y - b.y, d2 = dx * dx + dy * dy; if (d2 < R2) { const t = B[Math.min(3, ((1 - Math.sqrt(d2) / WEB_LINK) * 4) | 0)]; t.moveTo(a.x, a.y); t.lineTo(b.x, b.y) } } }
+      B.forEach((p, i) => { x.strokeStyle = `rgba(${ink},${ALPHA[i]})`; x.stroke(p) });
+      x.fillStyle = `rgba(${ink},.55)`; x.fill(dots)
+    }
+
+    /* ===== About: kode diketik saat section terlihat ===== */
+    const CODE = `// siapa saya, dalam kode
+const siswa = {
+  nama: "Muhammad Raditya Duta Pratama",
+  sekolah: "SMK TI Dwi Guna",
+  jurusan: "PPLG",
+  tools: ["VS Code", "Figma", "Canva"],
+  siapPKL: true,
+};
+
+function belajar(topik) {
+  return topik.praktik().ulangi();
+}`;
+    const hl = t => t.replace(/(\/\/.*)|("[^"\n]*"?)|\b(const|function|return|true)\b|\b(\w+)(?=:)|\b(\w+)(?=\()/g, (m, c, s, k, p, f) => c ? `<i class="c">${c}</i>` : s ? `<i class="s">${s}</i>` : k ? `<b>${k}</b>` : p ? `<i class="p">${p}</i>` : `<u>${f}</u>`);
+    const ce = $('#codeEl');
+    if (RM) ce.innerHTML = hl(CODE);
+    else new IntersectionObserver((e, o) => {
+      if (!e[0].isIntersecting) return; o.disconnect(); let i = 0;
+      const t = setInterval(() => { i += 2; ce.innerHTML = hl(CODE.slice(0, i)) + '<span class="caret"></span>'; if (i >= CODE.length) { clearInterval(t); ce.innerHTML = hl(CODE) + '<span class="caret"></span>' } }, 22)
+    }, { threshold: .3 }).observe($('.code'));
+
+    /* ===== Skills: kartu dibuat sekali; scroll = berkumpul/berserak, filter = FLIP halus ===== */
+    const sg = $('#sg'), mt = $('#mt'), skw = [];
+    SK.forEach(s => {
+      const w = document.createElement('div'); w.className = 'skw'; w.dataset.cat = s[1];
+      w.innerHTML = `<div class="sk"><div class="ic">${esc(s[2])}</div><p class="font-bold text-sm truncate min-w-0">${esc(s[0])}</p></div>`; sg.appendChild(w);
+      skw.push({ el: w, x: (Math.random() - .5) * innerWidth * .7, y: (Math.random() - .2) * 520, r: (Math.random() - .5) * 170 })
+    });
+    /* Posisi grid skill diukur sekali (saat load/resize), bukan tiap frame → tidak ada reflow paksa di loop animasi.
+       Pakai var tanpa nilai awal: dipanggil dari sizeWebs() sebelum baris ini dijalankan. */
+    var sgTop, sgH, lastP;
+    function measureSkills() { const g = document.getElementById('sg'); if (!g) return; sgTop = g.getBoundingClientRect().top + scrollY; sgH = g.offsetHeight; lastP = -1 }
+    function skScroll() {
+      const vh = innerHeight, top = sgTop; if (top == null) return;
+      if (sy + vh < top - 80 || sy > top + sgH + vh * .5) return;
+      const p = Math.min(1, Math.max(0, (sy + vh - top) / (vh * .85))); if (p === lastP) return; lastP = p;   // tidak ada perubahan → tidak ada tulis style
+      const e = 1 - Math.pow(1 - p, 3), q = RM ? 0 : 1 - e;
+      skw.forEach(o => { o.el.style.transform = `translate3d(${o.x * q}px,${o.y * q}px,0) rotate(${o.r * q}deg) scale(${1 - .45 * q})`; o.el.style.opacity = RM ? 1 : Math.min(1, e * 1.7) })
+    }
+    function marquee(f) {
+      mt.style.opacity = 0; setTimeout(() => {
+        const t = (f === 'all' ? SK : SK.filter(s => s[1] === f)).map(s => s[0]), g = Array.from({ length: Math.ceil(12 / t.length) }, () => t).flat().map(x => `<span>${esc(x)}</span><span style="opacity:.4">✦</span>`).join('');
+        mt.innerHTML = g + g; mt.style.setProperty('--d', t.length * 9 + 's'); mt.style.opacity = 1
+      }, 250)
+    }
+    let tok = 0;
+    async function skills(f) {
+      const my = ++tok, all = $$('.skw', sg), keep = all.filter(e => f === 'all' || e.dataset.cat === f), gone = all.filter(e => !keep.includes(e) && !e.hidden), ease = 'cubic-bezier(.2,.8,.2,1)';
+      marquee(f);
+      await Promise.all(gone.map(e => e.firstElementChild.animate([{ opacity: 1, transform: 'scale(1)' }, { opacity: 0, transform: 'scale(.6)' }], { duration: 220, easing: 'ease-in', fill: 'forwards' }).finished));
+      if (my !== tok) return;
+      const was = new Map(keep.filter(e => !e.hidden).map(e => [e, [e.offsetLeft, e.offsetTop]]));
+      gone.forEach(e => e.hidden = true); keep.forEach(e => e.hidden = false);
+      keep.forEach((e, i) => {
+        const n = e.firstElementChild; n.getAnimations().forEach(a => a.cancel());
+        if (was.has(e)) { const [ox, oy] = was.get(e), dx = ox - e.offsetLeft, dy = oy - e.offsetTop; if (dx || dy) n.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 650, easing: ease, delay: i * 25 }) }
+        else n.animate([{ opacity: 0, transform: 'scale(.6) translateY(20px)' }, { opacity: 1, transform: 'none' }], { duration: 600, easing: ease, delay: 120 + i * 40, fill: 'backwards' })
+      })
+    }
+    $('#flt').onclick = e => { const b = e.target.closest('.fb'); if (!b) return; $$('.fb').forEach(x => x.classList.toggle('on', x === b)); skills(b.dataset.f); setTimeout(sizeWebs, 900) };
+    skills('all'); measureSkills();
+
+    /* ===== Loop tunggal: scroll di-lerp agar halus (progress, parallax home, skill) + gambar jaring =====
+       Di HP: tanpa lerp (sy = scrollY) supaya animasi menempel ke scroll asli, dan jaring digambar 30fps. */
+    let lastT = 0, lastSy = -1, docH = 1;
+    (function tick(t) {
+      requestAnimationFrame(tick);
+      if (LITE) sy = scrollY; else { sy += (scrollY - sy) * .1; if (Math.abs(scrollY - sy) < .05) sy = scrollY }
+      if (sy !== lastSy) {   // hanya kerja kalau posisi scroll berubah
+        lastSy = sy; docH = document.documentElement.scrollHeight;
+        pb.style.transform = `scaleX(${sy / Math.max(1, docH - innerHeight)})`;
+        if (!RM && sy < innerHeight * 1.3) { wmi.style.transform = `translateY(${sy * .22}px)`; spw.style.transform = `translateY(${sy * .1}px)` }
+        skScroll()
+      }
+      if (LITE && t - lastT < 32) return; lastT = t;
+      webs.forEach(w => w.vis && drawWeb(w))
+    })(0);
+
+    /* ===== Projects ===== */
+    $('#pg').innerHTML = PR.map(p => `<article class="pc"><span class="tg self-start">${esc(p[0])}</span><h3 class="fd font-bold text-xl mt-4">${esc(p[1])}</h3><p class="mt-2 text-sm leading-relaxed opacity-70 flex-1">${esc(p[2])}</p></article>`).join('');
+
+    /* ===== Reveal halus saat scroll (class dilepas setelah selesai agar hover tetap cepat) ===== */
+    const rvo = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return; const el = e.target; el.classList.add('in'); rvo.unobserve(el);
+      setTimeout(() => { el.classList.remove('rv', 'in'); el.style.transitionDelay = '' }, 1300 + parseInt(el.style.transitionDelay || 0))
+    }), { threshold: .12 });
+    if (!RM) $$('section h2,.code,.glass,.pc,.cc3,#flt').forEach((el, i) => { el.classList.add('rv'); el.style.transitionDelay = (i % 3) * 90 + 'ms'; rvo.observe(el) });
+  </script>
+</body>
+
+</html>
